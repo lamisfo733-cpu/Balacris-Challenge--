@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بلاكرس - مغامرة الفريق</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="stars"></div>
+        <div class="circuit-board"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="screen active">
+            <div class="login-container">
+                <div class="logo-container">
+                    <div class="robot-logo">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h1 class="main-title">بلاكرس</h1>
+                    <p class="subtitle">مغامرة الفريق - 10 مراحل</p>
+                </div>
+                
+                <div class="login-form">
+                    <div class="form-group">
+                        <label>اسم الفريق</label>
+                        <input type="text" id="teamNameInput" placeholder="أدخل اسم فريقك">
+                    </div>
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" id="emailInput" placeholder="team@example.com">
+                    </div>
+                    <button class="btn btn-primary" onclick="startGame()">
+                        <i class="fas fa-play"></i>
+                        ابدأ المغامرة
+                    </button>
+                    <button class="btn btn-secondary" onclick="showLeaderboard()">
+                        <i class="fas fa-trophy"></i>
+                        لوحة المتصدرين
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stage Selection Screen -->
+        <div id="stageSelectionScreen" class="screen">
+            <div class="header">
+                <div class="team-info">
+                    <h2 id="teamNameDisplay"></h2>
+                    <div class="score-display">
+                        <i class="fas fa-star"></i>
+                        <span id="totalScoreDisplay">0</span>
+                    </div>
+                </div>
+                <button class="btn btn-small" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    خروج
+                </button>
+            </div>
+
+            <div class="stages-container">
+                <h2 class="section-title">اختر المرحلة</h2>
+                <div class="stages-grid">
+                    <!-- Stage 1 -->
+                    <div class="stage-card" data-stage="1">
+                        <div class="stage-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3>المرحلة 1</h3>
+                        <p>أسئلة عن الفريق</p>
+                        <div class="stage-progress">
+                            <span class="stage-score">0/100</span>
+                        </div>
+                        <button class="btn btn-stage" onclick="startStage(1)">ابدأ</button>
+                    </div>
+
+                    <!-- Stage 2 -->
+                    <div class="stage-card" data-stage="2">
+                        <div class="stage-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>المرحلة 2</h3>
+                        <p>أسئلة عن الفريق</p>
+                        <div class="stage-progress">
+                            <span class="stage-score">0/100</span>
+                        </div>
+                        <button class="btn btn-stage" onclick="startStage(2)">ابدأ</button>
+                    </div>
+
+                    <!-- Stage 3 -->
+                    <div class="stage-card" data-stage="3">
+                        <div class="stage-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h3>المرحلة 3</h3>
+                        <p>لعبة الروبوت - ماريو</p>
+                        <div class="stage-progress">
+                            <span class="stage-score">0/150</span>
+                        </div>
+                        <button class="btn btn-stage" onclick="startStage(3)">ابدأ</button>
+                    </div>
+
+                    <!-- Stage 4 -->
+                    <div class="stage-card" data-stage="4">
+                        <div class="stage-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>المرحلة 4</h3>
+                        <p>أسئلة تحدي</p>
+                        <div class="stage-progress">
+                            <span class="stage-score">0/100</span>
+                        </div>
+                        <button class="btn btn-stage" onclick="startStage(4)">ابدأ</button>
+                    </div>
+
+                    <!-- Stage 5 -->
+                    <div class="stage-card" data-stage="5">
+                        <div class="stage-icon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <h3>المرحلة 5</h3>
+                        <p>أسئلة متقدمة</p>
+                        <div class="stage-progress">
+                            <span class="stage-score">0/100</span>
+                        </div>
+                        <button class="btn btn-stage" onclick="startStage(5)">ابدأ</button>
+                    </div>
+
+                    <!-- Stage 6 -->
+                    <div class="stage-card" data-stage="6">
+                        <div class="stage-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h3>المرحلة 6</h3>
+                        <p>مختبر بلاكرس</p>
+                        <div class="stage-progress">
+                            <span class="stage-score">0/200</span>
+                        </div>
+                        <button class="btn btn-stage" onclick="startStage(6)">ابدأ</button>
+                    </div>
+
+                    <!-- Stage 7 -->
+                    <div class="stage-card" data-stage="7">
+                        <div class="stage-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>المرحلة 7</h3>
+                        <p>تحدي البرمجة</p>
+                        <div class="stage-progress">
+                            <span class="stage-score">0/100</span>
+                        </div>
+                        <button class="btn btn-stage" onclick="startStage(7)">ابدأ</button>
+                    </div>
+
+                    <!-- Stage 8 -->
+                    <div class="stage-card" data-stage="8">
+                        <div class="stage-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>المرحلة 8</h3>
+                        <p>أسئلة متقدمة</p>
+                        <div class="stage-progress">
+                            <span class="stage-score">0/100</span>
+                        </div>
+                        <button class="btn btn-stage" onclick="startStage(8)">ابدأ</button>
+                    </div>
+
+                    <!-- Stage 9 -->
+                    <div class="stage-card" data-stage="9">
+                        <div class="stage-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>المرحلة 9</h3>
+                        <p>التحدي النهائي</p>
+                        <div class="stage-progress">
+                            <span class="stage-score">0/100</span>
+                        </div>
+                        <button class="btn btn-stage" onclick="startStage(9)">ابدأ</button>
+                    </div>
+
+                    <!-- Stage 10 -->
+                    <div class="stage-card" data-stage="10">
+                        <div class="stage-icon special">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h3>المرحلة 10</h3>
+                        <p>البحث عن الكنز</p>
+                        <div class="stage-progress">
+                            <span class="stage-score">0/300</span>
+                        </div>
+                        <button class="btn btn-stage" onclick="startStage(10)">ابدأ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quizScreen" class="screen">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <button class="btn btn-small" onclick="backToStages()">
+                        <i class="fas fa-arrow-right"></i>
+                        رجوع
+                    </button>
+                    <div class="quiz-info">
+                        <span id="currentStageDisplay">المرحلة 1</span>
+                        <span id="questionCounter">1/10</span>
+                    </div>
+                    <div class="quiz-score">
+                        <i class="fas fa-star"></i>
+                        <span id="quizScore">0</span>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <h3 id="questionText" class="question-text"></h3>
+                    <div id="optionsContainer" class="options-container"></div>
+                </div>
+
+                <div id="feedbackContainer" class="feedback-container hidden"></div>
+            </div>
+        </div>
+
+        <!-- Mario Game Screen -->
+        <div id="marioScreen" class="screen">
+            <div class="game-container">
+                <div class="game-header">
+                    <button class="btn btn-small" onclick="backToStages()">
+                        <i class="fas fa-arrow-right"></i>
+                        رجوع
+                    </button>
+                    <h3>المرحلة 3 - لعبة الروبوت</h3>
+                    <div class="game-score">
+                        <i class="fas fa-heart"></i>
+                        <span id="lives">3</span>
+                    </div>
+                </div>
+
+                <div class="code-challenge">
+                    <h4>أصلح الكود لكي تبدأ اللعبة:</h4>
+                    <div class="code-editor">
+                        <pre><code>function startGame() {
+    let playerSpeed = <input type="text" id="code1" class="code-input" placeholder="?" maxlength="1">;
+    let jumpHeight = <input type="text" id="code2" class="code-input" placeholder="?" maxlength="2">;
+    let gravity = <input type="text" id="code3" class="code-input" placeholder="?" maxlength="3">;
+    return playerSpeed + jumpHeight - gravity;
+}</code></pre>
+                    </div>
+                    <button class="btn btn-primary" onclick="checkStartCode()">تحقق من الكود</button>
+                </div>
+
+                <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+                <div class="door-challenge hidden" id="doorChallenge">
+                    <h4>أصلح الكود لإظهار الباب:</h4>
+                    <div class="code-editor">
+                        <pre><code>function openDoor() {
+    let key1 = "<input type="text" id="doorCode1" class="code-input" placeholder="?" maxlength="5">";
+    let key2 = "<input type="text" id="doorCode2" class="code-input" placeholder="?" maxlength="5">";
+    return key1 === "BLAXX" && key2 === "ROBOT";
+}</code></pre>
+                    </div>
+                    <button class="btn btn-primary" onclick="checkDoorCode()">افتح الباب</button>
+                </div>
+
+                <div class="game-controls">
+                    <p><i class="fas fa-keyboard"></i> استخدم الأسهم للتحرك والمسافة للقفز</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lab Screen -->
+        <div id="labScreen" class="screen">
+            <div class="lab-container">
+                <div class="lab-header">
+                    <button class="btn btn-small" onclick="backToStages()">
+                        <i class="fas fa-arrow-right"></i>
+                        رجوع
+                    </button>
+                    <h3>المرحلة 6 - مختبر بلاكرس</h3>
+                    <div class="attempts-counter">
+                        <i class="fas fa-flask"></i>
+                        <span id="attempts">5</span> محاولات
+                    </div>
+                </div>
+
+                <div class="lab-content">
+                    <div class="chemicals-section">
+                        <h4>اختر المواد الكيميائية:</h4>
+                        <div class="chemicals-grid">
+                            <div class="chemical-item" data-chemical="A" onclick="selectChemical('A')">
+                                <div class="chemical-tube red">
+                                    <div class="liquid"></div>
+                                </div>
+                                <span>مادة A</span>
+                            </div>
+                            <div class="chemical-item" data-chemical="B" onclick="selectChemical('B')">
+                                <div class="chemical-tube blue">
+                                    <div class="liquid"></div>
+                                </div>
+                                <span>مادة B</span>
+                            </div>
+                            <div class="chemical-item" data-chemical="C" onclick="selectChemical('C')">
+                                <div class="chemical-tube green">
+                                    <div class="liquid"></div>
+                                </div>
+                                <span>مادة C</span>
+                            </div>
+                            <div class="chemical-item" data-chemical="D" onclick="selectChemical('D')">
+                                <div class="chemical-tube yellow">
+                                    <div class="liquid"></div>
+                                </div>
+                                <span>مادة D</span>
+                            </div>
+                            <div class="chemical-item" data-chemical="E" onclick="selectChemical('E')">
+                                <div class="chemical-tube purple">
+                                    <div class="liquid"></div>
+                                </div>
+                                <span>مادة E</span>
+                            </div>
+                            <div class="chemical-item" data-chemical="F" onclick="selectChemical('F')">
+                                <div class="chemical-tube orange">
+                                    <div class="liquid"></div>
+                                </div>
+                                <span>مادة F</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mixing-section">
+                        <h4>المزيج الحالي:</h4>
+                        <div class="mixing-beaker">
+                            <div class="beaker-content" id="mixtureContent"></div>
+                            <div id="selectedChemicals" class="selected-chemicals"></div>
+                        </div>
+                        <button class="btn btn-warning" onclick="clearMixture()">
+                            <i class="fas fa-redo"></i>
+                            إعادة تعيين
+                        </button>
+                        <button class="btn btn-primary" onclick="testMixture()">
+                            <i class="fas fa-fire"></i>
+                            اختبر المزيج
+                        </button>
+                    </div>
+
+                    <div class="hint-section">
+                        <h4><i class="fas fa-info-circle"></i> تلميح:</h4>
+                        <p>المزيج الصحيح يحتوي على 3 مواد كيميائية بالترتيب الصحيح</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Treasure Hunt Screen -->
+        <div id="treasureScreen" class="screen">
+            <div class="treasure-container">
+                <div class="treasure-header">
+                    <button class="btn btn-small" onclick="backToStages()">
+                        <i class="fas fa-arrow-right"></i>
+                        رجوع
+                    </button>
+                    <h3>المرحلة 10 - البحث عن الكنز</h3>
+                </div>
+
+                <div class="treasure-content">
+                    <div class="clues-section">
+                        <h4><i class="fas fa-scroll"></i> الأدلة المجمعة:</h4>
+                        <div id="cluesList" class="clues-list"></div>
+                    </div>
+
+                    <div class="treasure-puzzle">
+                        <h4>أدخل الكود السري لفتح الكنز:</h4>
+                        <p class="puzzle-hint">استخدم الأدلة من المراحل السابقة لتكوين الكود</p>
+                        <div class="code-inputs">
+                            <input type="text" class="treasure-input" id="t1" maxlength="1">
+                            <input type="text" class="treasure-input" id="t2" maxlength="1">
+                            <input type="text" class="treasure-input" id="t3" maxlength="1">
+                            <input type="text" class="treasure-input" id="t4" maxlength="1">
+                            <input type="text" class="treasure-input" id="t5" maxlength="1">
+                            <input type="text" class="treasure-input" id="t6" maxlength="1">
+                            <input type="text" class="treasure-input" id="t7" maxlength="1">
+                            <input type="text" class="treasure-input" id="t8" maxlength="1">
+                            <input type="text" class="treasure-input" id="t9" maxlength="1">
+                            <input type="text" class="treasure-input" id="t10" maxlength="1">
+                            <input type="text" class="treasure-input" id="t11" maxlength="1">
+                            <input type="text" class="treasure-input" id="t12" maxlength="1">
+                            <input type="text" class="treasure-input" id="t13" maxlength="1">
+                            <input type="text" class="treasure-input" id="t14" maxlength="1">
+                            <input type="text" class="treasure-input" id="t15" maxlength="1">
+                            <input type="text" class="treasure-input" id="t16" maxlength="1">
+                            <input type="text" class="treasure-input" id="t17" maxlength="1">
+                            <input type="text" class="treasure-input" id="t18" maxlength="1">
+                            <input type="text" class="treasure-input" id="t19" maxlength="1">
+                            <input type="text" class="treasure-input" id="t20" maxlength="1">
+                        </div>
+                        <button class="btn btn-primary btn-large" onclick="unlockTreasure()">
+                            <i class="fas fa-unlock"></i>
+                            افتح الكنز
+                        </button>
+                    </div>
+
+                    <div class="treasure-chest" id="treasureChest">
+                        <i class="fas fa-treasure-chest"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victoryScreen" class="screen">
+            <div class="victory-container">
+                <div class="trophy-animation">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h1 class="victory-title">مبروك! 🎉</h1>
+                <h2 id="winnerTeamName"></h2>
+                <p class="victory-message">لقد أكملتم جميع المراحل وحصلتم على كأس بلاكرس!</p>
+                <div class="final-score">
+                    <h3>النتيجة النهائية</h3>
+                    <div class="score-display-large">
+                        <i class="fas fa-star"></i>
+                        <span id="finalScore">0</span>
+                    </div>
+                </div>
+                <div class="victory-buttons">
+                    <button class="btn btn-primary" onclick="showLeaderboard()">
+                        <i class="fas fa-trophy"></i>
+                        لوحة المتصدرين
+                    </button>
+                    <button class="btn btn-secondary" onclick="playAgain()">
+                        <i class="fas fa-redo"></i>
+                        العب مرة أخرى
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div id="leaderboardScreen" class="screen">
+            <div class="leaderboard-container">
+                <div class="leaderboard-header">
+                    <button class="btn btn-small" onclick="backToLogin()">
+                        <i class="fas fa-arrow-right"></i>
+                        رجوع
+                    </button>
+                    <h2><i class="fas fa-trophy"></i> لوحة المتصدرين</h2>
+                </div>
+
+                <div class="leaderboard-content">
+                    <div class="podium">
+                        <div class="podium-place second">
+                            <div class="medal silver"><i class="fas fa-medal"></i></div>
+                            <div class="place-info">
+                                <h4 id="second-team">-</h4>
+                                <p id="second-score">0</p>
+                            </div>
+                        </div>
+                        <div class="podium-place first">
+                            <div class="medal gold"><i class="fas fa-crown"></i></div>
+                            <div class="place-info">
+                                <h4 id="first-team">-</h4>
+                                <p id="first-score">0</p>
+                            </div>
+                        </div>
+                        <div class="podium-place third">
+                            <div class="medal bronze"><i class="fas fa-medal"></i></div>
+                            <div class="place-info">
+                                <h4 id="third-team">-</h4>
+                                <p id="third-score">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="leaderboard-list">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>المركز</th>
+                                    <th>الفريق</th>
+                                    <th>النقاط</th>
+                                    <th>المراحل المكتملة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboardTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="adminScreen" class="screen">
+            <div class="admin-container">
+                <div class="admin-header">
+                    <h2><i class="fas fa-user-shield"></i> لوحة التحكم</h2>
+                    <button class="btn btn-small" onclick="backToLogin()">
+                        <i class="fas fa-arrow-right"></i>
+                        رجوع
+                    </button>
+                </div>
+
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="showAdminTab('players')">
+                        <i class="fas fa-users"></i>
+                        اللاعبين
+                    </button>
+                    <button class="tab-btn" onclick="showAdminTab('questions')">
+                        <i class="fas fa-question"></i>
+                        الأسئلة
+                    </button>
+                    <button class="tab-btn" onclick="showAdminTab('settings')">
+                        <i class="fas fa-cog"></i>
+                        الإعدادات
+                    </button>
+                </div>
+
+                <div class="admin-content">
+                    <div id="playersTab" class="tab-content active">
+                        <h3>إدارة اللاعبين</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <i class="fas fa-users"></i>
+                                <h4>إجمالي اللاعبين</h4>
+                                <p id="totalPlayers">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-trophy"></i>
+                                <h4>الفائزون</h4>
+                                <p id="totalWinners">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-chart-line"></i>
+                                <h4>متوسط النقاط</h4>
+                                <p id="avgScore">0</p>
+                            </div>
+                        </div>
+                        <div class="players-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>الفريق</th>
+                                        <th>البريد</th>
+                                        <th>المرحلة</th>
+                                        <th>النقاط</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminPlayersTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="questionsTab" class="tab-content">
+                        <h3>إدارة الأسئلة</h3>
+                        <button class="btn btn-primary" onclick="showAddQuestion()">
+                            <i class="fas fa-plus"></i>
+                            إضافة سؤال
+                        </button>
+                        <div class="questions-list" id="adminQuestionsList"></div>
+                    </div>
+
+                    <div id="settingsTab" class="tab-content">
+                        <h3>الإعدادات</h3>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label>إعادة تعيين جميع البيانات</label>
+                                <button class="btn btn-danger" onclick="resetAllData()">
+                                    <i class="fas fa-trash"></i>
+                                    إعادة تعيين
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <label>تصدير البيانات</label>
+                                <button class="btn btn-secondary" onclick="exportData()">
+                                    <i class="fas fa-download"></i>
+                                    تصدير
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Particles Effect -->
+    <script>
+        // Create stars for background
+        const starsContainer = document.querySelector('.stars');
+        for(let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+    </script>
+
+    <script src="js/main.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/mario.js"></script>
+    <script src="js/lab.js"></script>
+    <script src="js/treasure.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
